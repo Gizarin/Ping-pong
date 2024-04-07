@@ -1,0 +1,42 @@
+from pygame import * 
+from random import randint 
+
+
+class GameSprite(sprite.Sprite): 
+  def __init__(self, player_image, player_x, player_y, size_x, size_y, player_speed): 
+      sprite.Sprite.__init__(self) 
+
+
+      self.image = transform.scale(image.load(player_image), (size_x, size_y)) 
+      self.speed = player_speed 
+
+
+     
+      self.rect = self.image.get_rect() 
+      self.rect.y = player_y 
+
+class Player1(GameSprite):  
+   def update1(self): 
+       keys = key.get_pressed() 
+       if keys[K_s] and self.rect.y > 5: 
+           self.rect.y -= self.speed 
+       if keys[K_w] and self.rect.y < win_width - 80: 
+           self.rect.y += self.speed 
+
+class Player2(GameSprite):  
+   def update2(self): 
+        keys = key.get_pressed() 
+        if keys[K_UP] and self.rect.y > 5:  # type: ignore
+            self.rect.y -= self.speed 
+        if keys[K_Down] and self.rect.y < win_width - 80:  # type: ignore
+           self.rect.y += self.speed 
+
+
+while run: 
+   
+    for e in event.get(): 
+        if e.type == QUIT: 
+           run = False 
+    if not finish:
+        Player1.update1()
+        Player2.update2()
